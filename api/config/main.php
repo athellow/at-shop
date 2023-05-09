@@ -15,6 +15,16 @@ return [
         'request' => [
             'csrfParam' => '_csrf-api',
         ],
+        'response' => [
+            'class' => 'yii\web\Response',
+            'format' => \yii\web\Response::FORMAT_JSON,
+            'on beforeSend' => function ($event) {
+                $response = $event->sender;
+                if ($response->data !== null) {
+                    $response->statusCode = 200;
+                }
+            },
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
