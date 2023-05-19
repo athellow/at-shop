@@ -28,6 +28,8 @@ class IndexAction extends Action
     {
         // Your custom code here.
         
+        // p(Yii::$app->user->identity);
+
         return [
             'initInputField' => $this->params['initInputField'],
             'remask' => 'This is a demonstration',

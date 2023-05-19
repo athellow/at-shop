@@ -26,8 +26,9 @@ return [
             },
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'api\models\User',
             'enableAutoLogin' => true,
+            'enableSession' => false,   // 用户认证状态就不通过 session 来保持
             'identityCookie' => ['name' => '_identity-api', 'httpOnly' => true],
         ],
         'session' => [

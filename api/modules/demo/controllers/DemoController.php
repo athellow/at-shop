@@ -7,10 +7,26 @@
 namespace api\modules\demo\controllers;
 
 use Yii;
+use yii\filters\auth\CompositeAuth;
+use yii\filters\auth\HttpBasicAuth;
+use yii\filters\auth\HttpBearerAuth;
+use yii\filters\auth\QueryParamAuth;
 use api\components\Controller;
 
 class DemoController extends Controller
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'authenticator' => [
+                'class' => QueryParamAuth::class,
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
