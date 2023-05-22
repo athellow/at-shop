@@ -12,6 +12,7 @@ use yii\filters\auth\HttpBasicAuth;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\auth\QueryParamAuth;
 use api\components\Controller;
+use common\frame\filters\RateLimiter;
 
 class DemoController extends Controller
 {
@@ -23,6 +24,9 @@ class DemoController extends Controller
         return [
             'authenticator' => [
                 'class' => QueryParamAuth::class,
+            ],
+            'rateLimiter' => [
+                'class' => RateLimiter::class,
             ],
         ];
     }

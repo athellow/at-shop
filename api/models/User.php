@@ -6,7 +6,9 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\filters\RateLimitInterface;
 use yii\web\IdentityInterface;
+use common\frame\filters\RateLimiter;
 
 /**
  * User model
@@ -24,7 +26,7 @@ use yii\web\IdentityInterface;
  * @property string $password write-only password
  * @property string $token
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
@@ -211,4 +213,29 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getRateLimit($request, $action)
+    {
+        return RateLimiter::getRateLimit($request, $action);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function loadAllowance($request, $action)
+    {
+        return RateLimiter::loadAllowance($request, $action);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function saveAllowance($request, $action, $allowance, $timestamp)
+    {
+        return RateLimiter::saveAllowance($request, $action, $allowance, $timestamp);
+    }
+    
 }

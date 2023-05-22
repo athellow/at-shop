@@ -12,6 +12,11 @@ use api\components\Action;
 class IndexAction extends Action
 {
     /**
+     * @var array $rateLimit 速率限制
+     */
+    public $rateLimit = [3, 1];
+    
+    /**
      * {@inheritdoc}
      */
     protected function initParams()
