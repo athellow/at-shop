@@ -31,6 +31,7 @@ return [
                 [
                     'class' => \yii\log\FileTarget::class,
                     'levels' => ['error', 'warning'],
+                    'logFile' => '@api/runtime/logs/app.' . date('Ymd') . '.log',
                 ],
             ],
         ],
