@@ -120,12 +120,11 @@ abstract class Action extends \common\components\Action
             // ]);
         }
         
-        // 已在main.php中配置 response
-        // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        // Yii::$app->response->statusCode = 200;
-        // return $this->controller->asJson($resp);
+        Yii::$app->response->statusCode = 200;
+        return $this->controller->asJson($resp);
 
-        return $resp;
+        // 已在main.php中配置 response
+        // return $resp;
     }
 
 }

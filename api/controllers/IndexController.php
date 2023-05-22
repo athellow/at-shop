@@ -19,13 +19,27 @@ class IndexController extends Controller
      */
     public function actionError()
     {
+        Yii::$app->response->statusCode = 200;
+        
         $exception = Yii::$app->getErrorHandler()->exception;
         if (empty($exception)) {
-            throw new SystemErrorException('Not Found.');
+            // throw new SystemErrorException('Not Found.');
+            return $this->asJson([
+                'code' => ErrorCode::CODE_SYS_ERROR,
+                'message' => '系统错误',
+                'data' => new \stdClass
+            ]);
         }
-
+        
         $code = $exception->getCode() ? $exception->getCode() : ErrorCode::CODE_SYS_ERROR;
-        throw new SystemErrorException($exception->getMessage(), $code);
+        // $statusCode = $exception->statusCode;
+        // throw new SystemErrorException($exception->getMessage(), $code);
+
+        return $this->asJson([
+            'code' => $code,
+            'message' => $exception->getMessage(),
+            'data' => new \stdClass
+        ]);
     }
 
 }
