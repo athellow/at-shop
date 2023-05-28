@@ -13,6 +13,7 @@ return [
     'bootstrap' => ['log'],
     'language' => 'zh-CN',
     'defaultRoute' => 'admin/index',
+    'layout' => 'basic',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -48,25 +49,25 @@ return [
             ],
         ],
         */
-        // 'view' => [
-        //     'class' => 'yii\web\View',
-        //     'renderers' => [
-        //         'html' => [
-        //             'class' => 'yii\twig\ViewRenderer',
-        //             'cachePath' => '@runtime/Html/cache',
-        //             // Array of twig options:
-        //             'options' => [
-        //                 'auto_reload' => true,
-        //             ],
-        //             // 'globals' => ['html' => '\yii\helpers\Html','Url' => '\yii\helpers\Url'],
-        //             'globals' => [
-        //                 'html' => ['class' => '\yii\helpers\Html'],
-        //                 'Url'  => ['class' => '\yii\helpers\Url']
-        //             ],
-        //             'uses' => ['yii\bootstrap'],
-        //         ],
-        //     ],
-        // ],
+        'view' => [
+            'class' => 'yii\web\View',
+            'renderers' => [
+                'html' => [
+                    'class' => 'yii\twig\ViewRenderer',
+                    'cachePath' => '@runtime/Html/cache',
+                    // Array of twig options:
+                    'options' => [
+                        'auto_reload' => true,
+                    ],
+                    // 'globals' => ['html' => '\yii\helpers\Html','Url' => '\yii\helpers\Url'],
+                    'globals' => [
+                        'html' => ['class' => '\yii\helpers\Html'],
+                        'Url'  => ['class' => '\yii\helpers\Url']
+                    ],
+                    'uses' => ['yii\bootstrap'],
+                ],
+            ],
+        ],
     ],
     'modules' => [
         'admin' => [
