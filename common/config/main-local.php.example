@@ -63,5 +63,10 @@ return [
             // Or if you use a 3rd party service, see:
             // https://symfony.com/doc/current/mailer.html#using-a-3rd-party-transport
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            // uncomment if you want to cache RBAC items hierarchy
+            // 'cache' => 'cache',
+        ],
     ],
 ];

@@ -11,15 +11,17 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'language' => 'zh-CN',
+    'defaultRoute' => 'admin/index',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'backend\models\Admin',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+            'loginUrl' => ['auth/auth/login'],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
@@ -46,6 +48,33 @@ return [
             ],
         ],
         */
+        // 'view' => [
+        //     'class' => 'yii\web\View',
+        //     'renderers' => [
+        //         'html' => [
+        //             'class' => 'yii\twig\ViewRenderer',
+        //             'cachePath' => '@runtime/Html/cache',
+        //             // Array of twig options:
+        //             'options' => [
+        //                 'auto_reload' => true,
+        //             ],
+        //             // 'globals' => ['html' => '\yii\helpers\Html','Url' => '\yii\helpers\Url'],
+        //             'globals' => [
+        //                 'html' => ['class' => '\yii\helpers\Html'],
+        //                 'Url'  => ['class' => '\yii\helpers\Url']
+        //             ],
+        //             'uses' => ['yii\bootstrap'],
+        //         ],
+        //     ],
+        // ],
+    ],
+    'modules' => [
+        'admin' => [
+            'class' => 'backend\modules\admin\Module',
+        ],
+        'auth' => [
+            'class' => 'backend\modules\auth\Module',
+        ],
     ],
     'params' => $params,
 ];
