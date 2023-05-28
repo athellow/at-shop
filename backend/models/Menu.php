@@ -35,7 +35,7 @@ class Menu extends ActiveRecord
                 'text'      => '用户中心',
                 'ico' => 'icon-huiyuan',
                 'children'  => [
-                    'admin' => [
+                    [
                         'text' => '管理员列表',
                         'url'   => Url::build('admin/admin/index'),
                         'access'  => ['key' => 'manager|all', 'label' => '管理员管理']
