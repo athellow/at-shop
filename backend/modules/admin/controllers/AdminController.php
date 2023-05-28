@@ -12,7 +12,19 @@ use backend\controllers\BaseController;
 class AdminController extends BaseController
 {
     /**
+     * 管理员列表
+     * 
+     * @return string
+     */
+    public function actionIndex()
+    {
+        return $this->render('index.html', array_merge($this->params, ['content' => 'aaaa', 'page' => ['title' => 'aasd']]));
+    }
+
+    /**
      * 编辑管理员信息
+     * 
+     * @return string|Response
      */
     public function actionEdit()
     {

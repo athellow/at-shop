@@ -13,6 +13,8 @@ class IndexController extends BaseController
 {
     /**
      * 首页
+     * 
+     * @return string
      */
     public function actionIndex()
     {
