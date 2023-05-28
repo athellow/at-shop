@@ -84,6 +84,16 @@ class AuthController extends BaseController
     }
     
     /**
+     * 忘记密码
+     * 
+     * @return string|Response
+     */
+    public function actionForgotPassword()
+    {
+        p('忘记密码');
+    }
+    
+    /**
      * 登录
      */
     public function actionPasswordReset()
