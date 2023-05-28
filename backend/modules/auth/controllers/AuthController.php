@@ -17,7 +17,7 @@ class AuthController extends BaseController
     /**
 	 * @var array 无需认证的Action
 	 */
-	public $noAuthAction = ['login'];
+	public $noAuthAction = ['login', 'forgot-password'];
 
     /**
      * {@inheritdoc}
