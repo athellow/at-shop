@@ -31,6 +31,7 @@ class m230522_152318_create_admin_table extends Migration
             'last_ip' => $this->string(32)->notNull()->defaultValue(''),
             'last_time' => $this->integer()->notNull()->defaultValue(0),
             'login_count' => $this->integer()->notNull()->defaultValue(0),
+            'avatar' => $this->string()->notNull()->defaultValue('')->comment('头像'),
             'created_at' => $this->integer()->notNull()->defaultValue(0),
             'updated_at' => $this->integer()->notNull()->defaultValue(0),
         ], $tableOptions);

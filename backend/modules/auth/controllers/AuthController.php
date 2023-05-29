@@ -10,7 +10,7 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\captcha\CaptchaValidator;
 use backend\controllers\BaseController;
-use backend\models\LoginForm;
+use backend\models\AdminForm;
 
 class AuthController extends BaseController
 {
@@ -53,17 +53,12 @@ class AuthController extends BaseController
             //     }
             // }
 
-            $model = new LoginForm();
+            $model = new AdminForm(['formId' => 'login']);
             if ($model->load($post, '') && $model->login()) {
                 return $this->success('登录成功');
             }
             
-            $msg = '登录失败';
-            if ($errors = $model->getFirstErrors()) {
-                $msg = array_values($errors)[0] ?? $msg;
-            }
-
-            return $this->error($msg);
+            return $this->error($model->getError('登录失败'));
         }
         
         // $this->layout ='@app/views/layouts/basic.php';
