@@ -104,3 +104,19 @@ function getTempPathcallback(obj) {
         }
     });
 }
+
+// 获取图片上传本地的地址路径，兼容移动端浏览器
+function getTempPath(obj, callback) {
+    if (window.FileReader) {
+        // var ext = obj.value.substring(obj.value.lastIndexOf(".") + 1).toLowerCase();
+        var file = obj.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            if (typeof callback === "function") {
+                return callback(reader.result);
+            }
+            $(obj).parent().append("<img src='" + reader.result + "' />");
+        }
+    }
+}
