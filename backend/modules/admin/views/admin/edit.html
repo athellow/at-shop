@@ -27,7 +27,7 @@
                         <th class="paddingT15"><label>状态</label></th>
                         <td class="paddingT15 layui-form">
                             {% for index, item in statusList %}
-                            <input type="radio" name="status" value="a" title="{{ item }}" 
+                            <input type="radio" name="status" value="{{ index }}" title="{{ item }}" 
                                 {% if admin.status == index %}checked{% endif %} />
                             {% endfor %}
                         </td>
@@ -55,6 +55,7 @@
                     </tr>
                     <tr>
                         <th></th>
+                        <input type="hidden" name="id" value="{{ admin.id }}" />
                         <td class="ptb20"><input class="layui-btn layui-bg-blue J_AjaxSubmit" type="submit"
                             value="提交" /></td>
                     </tr>
