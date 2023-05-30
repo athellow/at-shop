@@ -9,11 +9,16 @@ namespace backend\models;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use backend\components\ActiveRecord;
 
 class Admin extends ActiveRecord implements IdentityInterface
 {
+    /** 新增场景 */
+    // const SCENARIO_ADD = 'add';
+    /** 编辑场景 */
+    // const SCENARIO_EDIT = 'edit';
+
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
@@ -47,10 +52,64 @@ class Admin extends ActiveRecord implements IdentityInterface
      */
     public function rules()
     {
+        // 如果不覆盖 scenarios() 方法，表示所有只要出现在 rules() 中的属性都是 安全 的。
+        // 提供一个别名为 safe 的验证器来申明 哪些属性是 安全 的不需要被验证。如 [['title', 'description'], 'safe']
+        // 同 scenarios()，想验证一个属性但不想让他是安全的，可在 rules() 方法中属性名加一个惊叹号 !
+        // 只有安全属性才能被块赋值。
+        
         return [
+            // username and password are both required
+            [['username', '!password_hash', 'email'], 'required'],
+            // email 属性必须是一个有效的电子邮箱地址
+            ['email', 'email'],
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            ['status', 'in', 'range' => [(string)Admin::STATUS_ACTIVE, (string)Admin::STATUS_INACTIVE, (string)Admin::STATUS_DELETED]],
+            ['avatar', 'file'],
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function scenarios()
+    {
+        // 用处：定义哪些属性应被验证，定义哪些属性安全
+        // 块赋值只应用在模型当前 scenario 场景 scenarios() 方法 列出的称之为 安全属性 的属性上
+        // 想验证一个属性但不想让他是安全的，可在 scenarios() 方法中属性名加一个惊叹号 !
+
+        $scenarios = parent::scenarios();
+
+        // $scenarios[self::SCENARIO_ADD] = ['username', 'password_hash', 'email', 'status', 'avatar'];
+        // $scenarios[self::SCENARIO_EDIT] = ['username', 'password_hash', 'email', 'status', 'avatar'];
+        
+        return $scenarios;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => '用户名',
+            'password_hash' => '密码',
+            'email' => '邮箱',
+            'status' => '状态',
+            'avatar' => '头像',
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function fields()
+    {
+        $fields = parent::fields();
+
+        // 去掉一些包含敏感信息的字段
+        unset($fields['auth_key'], $fields['password_hash'], $fields['password_reset_token'], $fields['verification_token']);
+
+        return $fields;
     }
 
     /**
@@ -171,7 +230,9 @@ class Admin extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        if (!empty($password)) {
+            $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        }
     }
 
     /**

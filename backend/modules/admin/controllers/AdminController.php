@@ -9,6 +9,7 @@ namespace backend\modules\admin\controllers;
 use Yii;
 use backend\controllers\BaseController;
 use backend\models\Admin;
+use backend\services\admin\AdminService;
 
 class AdminController extends BaseController
 {
@@ -29,33 +30,25 @@ class AdminController extends BaseController
      */
     public function actionEdit()
     {
-        $admin = Yii::$app->user->identity;
-        $admininfo = $admin->attributes;
-        $adminId = $admin->id;
+        // $adminId = Yii::$app->user->identity->id;
+		$id = intval(Yii::$app->request->get('id'));
 
         if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post();
             
-            // $admin->avatar = $post[$post['filekey'] ?? 'file'];
-            
-            $model = new \backend\models\AdminForm(['formType' => 'edit', 'adminId' => $adminId]);
-            if ($model->load($post, '') && $model->save(true)) {
-                return $this->success('登录成功');
-            }
-            
-            $msg = '登录失败';
-            if ($errors = $model->getFirstErrors()) {
-                $msg = array_values($errors)[0] ?? $msg;
+            if (AdminService::save($post)) {
+                return $this->success('保存成功');
             }
 
-            return $this->error($msg);
+            $error = AdminService::getFirstError('保存失败');
+            
+            return $this->error($error['msg'], $error['code']);
         }
 
-        unset($admininfo['password_hash'], $admininfo['password_reset_token'], $admininfo['auth_key']);
-        unset($admininfo['verification_token'], $admininfo['token']);
+        $admin = Admin::findOne($id)->toArray();
         
         return $this->render('edit.html', array_merge($this->params, [
-            'admin' => $admininfo,
+            'admin' => $admin,
             'statusList' => Admin::$status,
         ]));
     }
