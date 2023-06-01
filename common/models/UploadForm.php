@@ -55,7 +55,6 @@ class UploadForm extends Model
             ['file', 'required'],
             ['file', 'file'],
             ['file', 'validateExt'],
-            ['type', 'string'],
         ];
     }
 
