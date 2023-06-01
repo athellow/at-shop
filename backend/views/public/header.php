@@ -3,6 +3,10 @@
 /** @var string $homeUrl */
 $homeUrl = \common\helpers\Url::build(Yii::$app->defaultRoute);
 
+/** @var string $avatar */
+$avatar = Yii::$app->user->identity->avatar ?? '';
+$avatar = !empty($avatar) ? Yii::$app->params['loacalFileDomain'] . $avatar : '/static/images/default_user_avatar.gif';
+
 ?>
 
 <style>
@@ -42,7 +46,7 @@ $homeUrl = \common\helpers\Url::build(Yii::$app->defaultRoute);
         </li>
         <li class="layui-nav-item layui-hide layui-show-md-inline-block">
             <a href="javascript:;" style="color: #333;">
-                <img src="/static/images/default_user_avatar.gif" height="40" style="border-radius: 50%;">
+                <img src="<?= $avatar ?>" width="40" height="40" style="border-radius: 50%;">
                 <span class="ml5"><?= Yii::$app->user->identity->username ?></span>
             </a>
             <dl class="layui-nav-child">
