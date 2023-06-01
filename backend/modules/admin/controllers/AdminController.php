@@ -46,6 +46,7 @@ class AdminController extends BaseController
         }
 
         $admin = Admin::findOne($id)->toArray();
+        $admin['avatar'] = Yii::$app->params['loacalFileDomain'] . $admin['avatar'];
         
         return $this->render('edit.html', array_merge($this->params, [
             'admin' => $admin,
