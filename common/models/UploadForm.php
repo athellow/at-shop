@@ -16,7 +16,7 @@ class UploadForm extends Model
     /** @var UploadedFile */
     public $file;
 
-    /** @var string path */
+    /** @var string path 相对路径 */
     public $path;
 
     /** @var string 存储文件名 */
