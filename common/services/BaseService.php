@@ -45,14 +45,16 @@ class BaseService
      * 返回第一个错误
      * @param string|null $defaultMsg 默认错误信息
      * @param int|null $defaultCode 默认错误码
-     * @return string|null 错误信息。如果没有错误，则返回Null。
+     * @return array 错误信息
      */
-    public static function getFirstError($defaultMsg = null, $defaultCode = ErrorCode::CODE_PARAM_ERROR)
+    public static function getFirstError($defaultMsg = '系统异常', $defaultCode = ErrorCode::CODE_SYS_ERROR)
     {
-        return (!(empty(self::$_errors))) ? reset(self::$_errors) 
-            : ($defaultMsg === null ? null : [
-                'msg' => $defaultMsg, 'code' => $defaultCode
-            ]);
+        if (empty(self::$_errors)) {
+            return [$defaultMsg, $defaultCode];
+        } else {
+            $err = reset(self::$_errors);
+            return [$err['msg'], $err['code']];
+        }
     }
 
 }
