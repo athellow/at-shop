@@ -40,9 +40,9 @@ class AdminController extends BaseController
                 return $this->success('保存成功');
             }
 
-            $error = AdminService::getFirstError('保存失败');
+            list($msg, $code) = AdminService::getFirstError('保存失败');
             
-            return $this->error($error['msg'], $error['code']);
+            return $this->error($msg, $code);
         }
 
         $admin = Admin::findOne($id)->toArray();
