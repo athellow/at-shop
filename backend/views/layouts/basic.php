@@ -11,6 +11,7 @@
     <title><?= $this->title ?? '后台管理系统' ?></title>
 
     <link href="/vendors/layui/css/layui.css" rel="stylesheet" type="text/css" />
+    <link href="/vendors/layui/css/global.css" rel="stylesheet" type="text/css" />
     <link href="/vendors/font_1864554/iconfont.css" rel="stylesheet" type="text/css" />
     <link href="/vendors/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="/static/css/admin.css" rel="stylesheet" type="text/css" />
@@ -30,6 +31,7 @@
     <script type="text/javascript" src="/static/js/jquery/jquery.form.js" charset="<?= Yii::$app->charset ?>"></script>
     <script type="text/javascript" src="/static/js/jquery/jquery.session.js" charset="<?= Yii::$app->charset ?>"></script>
     <script type="text/javascript" src="/vendors/layui/layui.js" charset="<?= Yii::$app->charset ?>"></script>
+    <script type="text/javascript" src="/vendors/layui/modules/global.js" charset="<?= Yii::$app->charset ?>"></script>
     <script type="text/javascript" src="/static/js/at.js" charset="<?= Yii::$app->charset ?>"></script>
     <script type="text/javascript" src="/static/js/admin.js" charset="<?= Yii::$app->charset ?>"></script>
 

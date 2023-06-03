@@ -1,4 +1,12 @@
 $(function () {
+	$.fn.serializeJson = function () {
+		var serializeObj = {};
+		$(this.serializeArray()).each(function () {
+			// use condition for url route disable
+			if (this.name != 'r') serializeObj[this.name] = this.value;
+		});
+		return serializeObj;
+	};
 
     /* 表单提交 */
     $('body').on('click', '.J_AjaxSubmit', function () {
@@ -149,6 +157,23 @@ function buildUrl(route, params) {
     }
 
     return queryUrl;
+}
+
+/* 获取当前模块及控制器下的action路由 */
+function getCulRoute(action) {
+    var parseUrl = layui.url();
+    var pathname = [];
+
+    if (ENABLE_PRETTY_URL) {
+        pathname = parseUrl.pathname || pathname;
+    } else {
+        var r = parseUrl.search.r || '';
+        pathname = r && r.split('/');
+    }
+
+    action = action || (pathname[2] || 'index');
+
+    return (pathname[0] || 'index') + '/' + (pathname[1] || 'index') + '/' + action;
 }
 
 function log(...params) {

@@ -120,3 +120,65 @@ function getTempPath(obj, callback) {
         }
     }
 }
+
+layui.use(function() {
+    var table = layui.table;
+
+    // 监听工具栏事件
+    table.on('toolbar(main)', function (obj) {
+        if (obj.event === 'batch-del') {
+            var checkStatus = table.checkStatus(obj.config.id);
+            if (checkStatus.data.length <= 0) {
+                layer.msg('未选择', {
+                    time: 2000
+                });
+                return false;
+            }
+            var items = new Array();
+            $.each(checkStatus.data, function (i, item) {
+                items.push(item[primaryKey]);
+            });
+
+            var btnObj = $('[lay-event="' + obj.event + '"]');
+            var confirm = btnObj.attr('confirm') || '删除后将不能恢复，确认删除选中的 ' + items.length + ' 条记录吗？';
+            var primaryKey = btnObj.data('primary-key') || 'id';
+            var url = btnObj.data('url') || buildUrl(getCulRoute('del'));
+
+            btnObj.attr('confirm', confirm);
+
+            log(url, items);
+            
+            layer.confirm(confirm, function(index) {
+                var index = layer.load(0, {
+                    shade: false
+                }); // 0代表加载的风格，支持0-2
+                window.Tnmc.ajax(url, 'post', {id: items.join(',')}, function(response) {
+                    layer.close(index)
+                    if (response.code === 0 || response.code==200) {
+                        layer.msg(response.message || response.msg || '操作成功', {
+                            offset: '40px',
+                            time: 8000,
+                            icon: 1, 
+                            end: function () {
+                                table.reload('main-table');
+                            }
+                        });
+                        
+                    } else {
+                        layer.msg(response.message || response.msg || '操作失败', {
+                            offset: '40px',
+                            time: 8000,
+                            icon: 2
+                        });
+                    }
+                });
+            });
+            // ajaxRequest(btnObj, url(['user/delete', { id: items.join(',') }]), function () {
+            //     table.reload('tablegrid');
+            // });
+        } else if (obj.event === 'export') {
+            var p = $.extend(window.Tnmc.getUrlFormArgs(), {id: items.join(',')});
+            window.location.href = buildUrl(getCulRoute('export'), p);
+        }
+    });
+})

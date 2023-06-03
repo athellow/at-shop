@@ -204,7 +204,7 @@ window.Tnmc.quickPost = function(url, data, reload) {
     this.ajax(url, 'post', data, function(response) {
         layer.close(index)
         if (response.code === 0||response.code==200) {
-            layer.msg(response.message || '操作成功', {
+            layer.msg(response.message || response.msg || '操作成功', {
                 offset: '40px',
                 time: 1500,
                 icon: 1
@@ -213,7 +213,7 @@ window.Tnmc.quickPost = function(url, data, reload) {
                 window.Tnmc.tableReload();
             }
         } else {
-            layer.msg(response.message || '操作失败', {
+            layer.msg(response.message || response.msg || '操作失败', {
                 offset: '40px',
                 time: 1500,
                 icon: 2
@@ -245,12 +245,12 @@ window.Tnmc.submitForm = function(formEle, submitBefore, doneCallbcak) {
     }
     window.Tnmc.formPost(url, formData, function(response) {
         if (response.code !== 0) {
-            layer.msg(response.message, {
+            layer.msg(response.message || response.msg, {
                 offset: '40px',
                 icon: 2
             })
         } else {
-            layer.msg(response.message, {
+            layer.msg(response.message || response.msg, {
                 offset: '40px',
                 icon: 1
             })
@@ -383,12 +383,12 @@ window.Tnmc.formSubmitEventMonitor = function($eventTarget) {
         }
         if (response.code !== 0) {
             if (!!index) {
-                parent.layer.msg(response.message, {
+                parent.layer.msg(response.message || response.msg, {
                     offset: '40px',
                     icon: 2
                 })
             } else {
-                layer.msg(response.message, {
+                layer.msg(response.message || response.msg, {
                     offset: '40px',
                     icon: 2
                 })
@@ -396,7 +396,7 @@ window.Tnmc.formSubmitEventMonitor = function($eventTarget) {
         } else {
 
             if (!index) {
-                layer.msg(response.message, {
+                layer.msg(response.message || response.msg, {
                     offset: '40px',
                     icon: 1
                 })
@@ -414,7 +414,7 @@ window.Tnmc.formSubmitEventMonitor = function($eventTarget) {
                 }
             } else {
                 if (!!response.data && !!response.data.goto_url) {
-                    layer.msg(response.message, {
+                    layer.msg(response.message || response.msg, {
                         offset: '40px',
                         icon: 1
                     })
@@ -422,7 +422,7 @@ window.Tnmc.formSubmitEventMonitor = function($eventTarget) {
                         window.location.href = response.data.goto_url;
                     }, 0)
                 } else {
-                    parent.layer.msg(response.message, {
+                    parent.layer.msg(response.message || response.msg, {
                         offset: '40px',
                         icon: 1
                     })
@@ -439,26 +439,27 @@ window.Tnmc.formSubmitEventMonitor = function($eventTarget) {
     })
 }
 window.Tnmc.exportEventMonitor = function() {
-    $('[data-export]').click(function() {
+    $(function() {
+        $('[data-export]').click(function() {
+            $form = $('<form></form>');
+            $form.css({
+                'display':'none'
+            })
+            var url = $(this).data('url');
+            var params = window.Tnmc.getUrlFormArgs();
 
-        $form = $('<form></form>');
-        $form.css({
-            'display':'none'
-        })
-        var url = $(this).data('url');
-        var params = window.Tnmc.getUrlFormArgs();
-
-        $('body').append($form);
-        $form.attr('method','POST');
-        $form.attr('action', url );
-        $form.attr('target', '_blank' );
-        for(var name in params){
-            $input = $('<input name="'+name+'" value="'+params[name]+'" /> ')
-            $form.append($input);
-        }
-        $form.submit()
-        console.log(params)
-    })
+            $('body').append($form);
+            $form.attr('method','POST');
+            $form.attr('action', url );
+            $form.attr('target', '_blank' );
+            for(var name in params){
+                $input = $('<input name="'+name+'" value="'+params[name]+'" /> ')
+                $form.append($input);
+            }
+            $form.submit()
+            console.log(params)
+        });
+    });
 }
 var autoRender = function($ele,options){
     this.laytpl = null;
@@ -620,7 +621,7 @@ window.Tnmc.confirmEventMonitor = function() {
                 window.Tnmc.ajax(url, 'post', params, function(response) {
                     layer.close(window.Tnmc.loadIndex)
                     if (response.code === 0||response.code==200) {
-                        layer.msg(response.message || '操作成功', {
+                        layer.msg(response.message || response.msg || '操作成功', {
                             offset: '40px',
                             time: 4000,
                             icon: 1
@@ -636,7 +637,7 @@ window.Tnmc.confirmEventMonitor = function() {
                             }
                         }
                     } else {
-                        layer.msg(response.message || '操作失败', {
+                        layer.msg(response.message || response.msg || '操作失败', {
                             offset: '40px',
                             time: 4000,
                             // icon: 2
@@ -706,14 +707,14 @@ window.Tnmc.downloadEventMonitor = function() {
                 window.Tnmc.ajax(url, 'post', params, function(response) {
                     layer.close(index)
                     if (response.code === 0||response.code==200) {
-                        layer.msg(response.message || '操作成功', {
+                        layer.msg(response.message || response.msg || '操作成功', {
                             offset: '40px',
                             time: 8000,
                             // icon: 1
                         })
                         window.location.href = response.data.goto_url
                     } else {
-                        layer.msg(response.message || '操作失败', {
+                        layer.msg(response.message || response.msg || '操作失败', {
                             offset: '40px',
                             time: 8000,
                             // icon: 2
@@ -840,7 +841,7 @@ window.Tnmc.modalEventMonitorInit = function(options) {
                             $(layerContent).find('.layui-layer-btn0').prop('disabled', false).removeClass('loading')
                         }, 1000)
                         if (response.code !== 0) {
-                            layer.msg(response.message, {
+                            layer.msg(response.message || response.msg, {
                                 offset: '40px',
                                 time: 1500,
                                 icon: 2
@@ -850,7 +851,7 @@ window.Tnmc.modalEventMonitorInit = function(options) {
                             if ($form.data('reload')) {
                                 window.Tnmc.tableReload();
                             }
-                            layer.msg(response.message, {
+                            layer.msg(response.message || response.msg, {
                                 offset: '40px',
                                 icon: 1
                             })
@@ -960,14 +961,14 @@ window.Tnmc.openModal = function(opts) {
                 $(layerContent).find('.layui-layer-btn0').prop('disabled', false).removeClass('loading')
             }, 1000)
             if (response.code !== 0) {
-                layer.msg(response.message, {
+                layer.msg(response.message || response.msg, {
                     offset: '40px',
                     time: 1500,
                     icon: 2
                 })
             } else {
                 layer.close(index)
-                layer.msg(response.message, {
+                layer.msg(response.message || response.msg, {
                     offset: '40px',
                     icon: 1
                 })
@@ -1091,7 +1092,7 @@ window.Tnmc.getMobileCodeEvent = function(url) {
                 }, 1000);
             } else {
                 $this.prop("disabled", false).removeClass('loading').text(defaultText);
-                layer.msg(response.message)
+                layer.msg(response.message || response.msg)
             }
         })
     })
@@ -1207,7 +1208,7 @@ window.Tnmc.uploadHandler = function(opts) {
             if (response.code == 0) {
                 layer.msg('上传成功');
             } else {
-                layer.msg(response.message)
+                layer.msg(response.message || response.msg)
             }
 
 
@@ -1726,7 +1727,7 @@ window.Tnmc.layuiRowspan = function(fieldNameTmp,index,flag){
                done: function(res){
                      if( res.code>0 )
                      {
-                         layer.msg(res.message);
+                         layer.msg(res.message || response.msg);
                      }
                      that.src=res.data.url[0];
                      that.value=res.data.url[0];
