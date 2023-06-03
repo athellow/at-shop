@@ -96,7 +96,7 @@ layui.use(['table', 'form', 'laydate'], function() {
         elem: '#main-table',
         // totalRow: true,
         skin: 'line',
-        url: buildUrl('admin/admin/list', $("#formSearch").serializeJson()),
+        url: buildUrl('admin/admin/index', $("#formSearch").serializeJson()),
         toolbar: '#toolbar',
         defaultToolbar: ['filter'/*, 'exports'*/, 'print'],
         title: '用户列表',
