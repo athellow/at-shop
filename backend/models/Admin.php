@@ -23,7 +23,7 @@ class Admin extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
-    public static $status = [
+    public static $statusList = [
         self::STATUS_DELETED => '删除',
         self::STATUS_INACTIVE => '禁用',
         self::STATUS_ACTIVE => '启用',
@@ -267,4 +267,34 @@ class Admin extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
     
+    /**
+     * Adds an additional WHERE condition to the existing one.
+     * @param array $params
+     * @param \yii\db\Query $query
+     * @param string $alias
+     * @return \yii\db\Query
+     */
+    public static function getWhere($params, $query = null, $alias = '')
+    {
+        if ($query === null) {
+            $query = self::find();
+        }
+
+        if ($alias) $alias .= '.';
+
+        if (!empty($params['username'])) {
+            $query->andWhere([$alias .'username' => $params['username']]);
+        }
+        
+        if (!empty($params['email'])) {
+            $query->andWhere([$alias .'username' => $params['email']]);
+        }
+        
+        if (isset($params['status']) && $params['status'] !== '') {
+            $query->andWhere([$alias .'status' => $params['status']]);
+        }
+
+        return $query;
+    }
+
 }

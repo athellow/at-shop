@@ -113,9 +113,9 @@ class Controller extends \common\components\Controller
      * @param int  $code 响应状态码
      * @return Response
      */
-    public function success($msg = '操作成功', $data = [], $code = ErrorCode::CODE_SUCCESS)
+    public function success($msg = '操作成功', $data = [], $count = 0, $code = ErrorCode::CODE_SUCCESS)
     {
-        return $this->asJson(['code' => $code, 'msg' => $msg, 'data' => $data ?: new \stdClass]);
+        return $this->asJson(['code' => $code, 'msg' => $msg, 'data' => $data ?: new \stdClass, 'count' => $count]);
     }
 
     /**
