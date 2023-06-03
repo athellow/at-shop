@@ -121,27 +121,28 @@ function getTempPath(obj, callback) {
     }
 }
 
-layui.use(function() {
+layui.use(['table'], function() {
     var table = layui.table;
 
     // 监听工具栏事件
     table.on('toolbar(main)', function (obj) {
+        var btnObj = $('[lay-event="' + obj.event + '"]');
+        var primaryKey = btnObj.data('primary-key') || 'id';
+        var checkStatus = table.checkStatus(obj.config.id);
+        var items = new Array();
+
+        $.each(checkStatus.data, function (i, item) {
+            items.push(item[primaryKey]);
+        });
+        
         if (obj.event === 'batch-del') {
-            var checkStatus = table.checkStatus(obj.config.id);
-            if (checkStatus.data.length <= 0) {
-                layer.msg('未选择', {
-                    time: 2000
-                });
+            if (items.length <= 0) {
+                layer.msg('未选择', {time: 2000});
+
                 return false;
             }
-            var items = new Array();
-            $.each(checkStatus.data, function (i, item) {
-                items.push(item[primaryKey]);
-            });
-
-            var btnObj = $('[lay-event="' + obj.event + '"]');
+            
             var confirm = btnObj.attr('confirm') || '删除后将不能恢复，确认删除选中的 ' + items.length + ' 条记录吗？';
-            var primaryKey = btnObj.data('primary-key') || 'id';
             var url = btnObj.data('url') || buildUrl(getCulRoute('del'));
 
             btnObj.attr('confirm', confirm);
@@ -173,11 +174,9 @@ layui.use(function() {
                     }
                 });
             });
-            // ajaxRequest(btnObj, url(['user/delete', { id: items.join(',') }]), function () {
-            //     table.reload('tablegrid');
-            // });
         } else if (obj.event === 'export') {
             var p = $.extend(window.Tnmc.getUrlFormArgs(), {id: items.join(',')});
+
             window.location.href = buildUrl(getCulRoute('export'), p);
         }
     });

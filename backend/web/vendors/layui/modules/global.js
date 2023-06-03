@@ -440,7 +440,9 @@ window.Tnmc.formSubmitEventMonitor = function($eventTarget) {
 }
 window.Tnmc.exportEventMonitor = function() {
     $(function() {
-        $('[data-export]').click(function() {
+        $('body').delegate('[data-export]', 'click', function() {
+
+        // $('[data-export]').click(function() {
             $form = $('<form></form>');
             $form.css({
                 'display':'none'
