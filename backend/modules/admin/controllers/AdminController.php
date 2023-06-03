@@ -26,18 +26,11 @@ class AdminController extends BaseController
     public function actionIndex()
     {
         $params = Yii::$app->request->get();
-        if (Yii::$app->request->isAjax) {
-            $query = Admin::getWhere($params)
-                ->select('id, username, email, status, last_ip, last_time, login_count, avatar, created_at, updated_at')
-                ->orderBy(['id' => SORT_ASC]);
-            
-            // echo $query->createCommand()->getRawSql();exit;
-            $count = $query->count();
-            $page = Page::getPage($count, $params['limit'] ?? 10);
 
-            $list = $query->offset($page->offset)->limit($page->limit)->asArray()->all();
+        if (Yii::$app->request->isAjax) {
+            $data = AdminService::getList($params);
             
-            return $this->success('获取成功', $list);
+            return $this->success('获取成功', $data['items'], $data['total']); 
         }
 
         return $this->render('index.html', array_merge($this->params, [
@@ -45,16 +38,6 @@ class AdminController extends BaseController
             'addUrl' => Url::build('admin/admin/add'),
             'page' => ['title' => 'aasd']
         ]));
-    }
-
-    public function actionList()
-    {
-        $params = Yii::$app->request->get();
-
-        $data = AdminService::getList($params);
-        
-        
-        return $this->success('获取成功', $data['items'], $data['total']); 
     }
 
     /**
