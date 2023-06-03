@@ -17,7 +17,6 @@ use common\helpers\Url;
 
 class AdminController extends BaseController
 {
-
     /**
      * 管理员列表
      * 
@@ -116,4 +115,15 @@ class AdminController extends BaseController
 
         return $this->success('删除成功', $id);
     }
+
+    /**
+     * 导出数据
+     */
+    public function actionExport()
+    {
+        $params = $this->input;
+
+        return AdminService::export($params);	
+    }
+
 }

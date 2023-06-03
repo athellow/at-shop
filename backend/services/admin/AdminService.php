@@ -10,6 +10,7 @@ use Yii;
 use yii\web\UploadedFile;
 use backend\models\Admin;
 use backend\services\BaseService;
+use common\helpers\Export;
 use common\helpers\Page;
 use common\helpers\Request;
 use common\helpers\Time;
@@ -61,6 +62,33 @@ class AdminService extends BaseService
         $data['items'] = $list;
         
         return $data;
+    }
+
+    /**
+     * 导出
+     * @param  array    $params    参数
+     * @return mixed
+     */
+    public static function export($params)
+    {
+        $data = self::getList($params, true);
+        $list = $data['items'] ?? [];
+
+        $header = [
+            'id'            => 'ID',
+            'username'      => '用户名',
+            'email'         => '电子邮箱',
+            'status_text'   => 'QQ',
+            'last_ip'       => '最后登录IP',
+            'last_time'     => '最后登录时间',
+            'login_count'   => '登录次数',
+            'created_time'  => '注册时间',
+            'updated_time'  => '注册时间',
+        ];
+
+        $filename ='ADMIN_'. date('YmdHis') .'.xlsx';
+
+        return Export::export($header, $list, $filename);
     }
 
     /**
