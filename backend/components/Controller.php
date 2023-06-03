@@ -9,6 +9,7 @@ namespace backend\components;
 use Yii;
 use yii\web\Response;
 use common\helpers\ErrorCode;
+use common\helpers\Request;
 use common\helpers\Url;
 
 class Controller extends \common\components\Controller
@@ -30,9 +31,14 @@ class Controller extends \common\components\Controller
     protected $noAuthAction = [];
 
     /**
-     * 输入参数
+     * 公共渲染参数
      */
     protected $params = null;
+
+    /**
+     * 输入参数
+     */
+    protected $input = null;
 
     /**
      * {@inheritdoc}
@@ -48,6 +54,8 @@ class Controller extends \common\components\Controller
             'successCode'       => ErrorCode::CODE_SUCCESS,
             'homeUrl'           => Url::build(Yii::$app->defaultRoute),
         ];
+
+        $this->input = Request::input();
     }
 
     /**
