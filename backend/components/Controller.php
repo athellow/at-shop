@@ -61,6 +61,16 @@ class Controller extends \common\components\Controller
     /**
      * {@inheritdoc}
      */
+    public function render($view, $params = [])
+    {
+        $params =  array_merge($this->params, $params);
+
+        return parent::render($view, $params);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function actions()
     {
         return [
