@@ -52,19 +52,34 @@
 
 
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     $(function() {
         layui.use(['element','form'], function() {
             var element = layui.element;
             layui.form.render();
+
+            // 表格无数据
+            if (tableIns = window.Tnmc.tableIns) {
+                tableIns.config && (tableIns.config.parseData = function(res) {
+                    if (res.count == 0) {
+                        return {
+                            'code': 201,
+                            'msg': '无数据',
+                            'count': 0,
+                            'data': []
+                        }
+                    }
+                });
+            }
         });
     })
+    
     window.Tnmc.afterRender = function() {
         layui.use(['element','form'], function() {
             var element = layui.element;
             layui.form.render();
         });
     }
-</script> -->
+</script>
 </body>
 </html>
