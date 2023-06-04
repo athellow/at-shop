@@ -11,6 +11,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\web\IdentityInterface;
 use backend\components\ActiveRecord;
+use common\helpers\Time;
 
 class Admin extends ActiveRecord implements IdentityInterface
 {
@@ -292,6 +293,10 @@ class Admin extends ActiveRecord implements IdentityInterface
         
         if (isset($params['status']) && $params['status'] !== '') {
             $query->andWhere([$alias .'status' => $params['status']]);
+        }
+        
+        if (!empty($params['create_date']) && ($timeRange = Time::getRange($params['create_date']))) {
+            $query->andWhere(['between', $alias .'created_at', $timeRange['startTime'], $timeRange['endTime']]);
         }
 
         return $query;
