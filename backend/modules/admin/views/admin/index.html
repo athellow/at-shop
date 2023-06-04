@@ -32,7 +32,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">注册时间</label>
                         <div class="layui-input-inline">
-                          <input type="text" class="layui-input" name="create_time" value="{{create_time}}" id="create_time" placeholder="选择时间范围" autocomplete="off" />
+                          <input type="text" class="layui-input" name="create_date" value="{{create_date}}" id="create_date" placeholder="选择时间范围" autocomplete="off" />
                         </div>
                     </div>
                     
@@ -161,11 +161,11 @@ layui.use(['table', 'form', 'laydate'], function() {
 
     // 日期范围
     layui.laydate.render({
-        elem: '#create_time',
+        elem: '#create_date',
         range: true
     });
     // layui.laydate.render({
-    //     elem: '#create_time',
+    //     elem: '#create_date',
     //     format : 'yyyy-MM',
     //     type : 'month',
     //     range: true,

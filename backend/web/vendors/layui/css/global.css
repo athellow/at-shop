@@ -1,14 +1,8 @@
-body{
-  font-size: 13px;
-}
 footer{
   display: none;
 }
 .layui-btn{
   font-size: 12px;
-}
-.layui-nav *{
-    font-size: 13px;
 }
 .layui-table-noborder{
   width: 100%;

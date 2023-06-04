@@ -439,7 +439,7 @@ window.Tnmc.formSubmitEventMonitor = function($eventTarget) {
     })
 }
 window.Tnmc.exportEventMonitor = function() {
-    $(function() {
+    //$(function() {
         $('body').delegate('[data-export]', 'click', function() {
 
         // $('[data-export]').click(function() {
@@ -461,7 +461,7 @@ window.Tnmc.exportEventMonitor = function() {
             $form.submit()
             console.log(params)
         });
-    });
+    //});
 }
 var autoRender = function($ele,options){
     this.laytpl = null;
