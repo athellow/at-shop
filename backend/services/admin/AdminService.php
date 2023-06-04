@@ -106,7 +106,7 @@ class AdminService extends BaseService
         
         $model->setPassword($params['password']);
         // 设置此属性会强制该账户登出
-        // $model->generateAuthKey();
+        $model->generateAuthKey();
 
         if ($model->load($params, '') && $model->save(true)) {
             $upModel = new \common\models\UploadForm();

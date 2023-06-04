@@ -65,7 +65,6 @@ class Admin extends ActiveRecord implements IdentityInterface
             ['email', 'email'],
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [(string)Admin::STATUS_ACTIVE, (string)Admin::STATUS_INACTIVE, (string)Admin::STATUS_DELETED]],
-            ['avatar', 'file'],
         ];
     }
 
@@ -80,8 +79,8 @@ class Admin extends ActiveRecord implements IdentityInterface
 
         $scenarios = parent::scenarios();
 
-        // $scenarios[self::SCENARIO_ADD] = ['username', 'password_hash', 'email', 'status', 'avatar'];
-        // $scenarios[self::SCENARIO_EDIT] = ['username', 'password_hash', 'email', 'status', 'avatar'];
+        // $scenarios[self::SCENARIO_ADD] = ['username', 'password_hash', 'email', 'status'];
+        // $scenarios[self::SCENARIO_EDIT] = ['username', 'password_hash', 'email', 'status'];
         
         return $scenarios;
     }
