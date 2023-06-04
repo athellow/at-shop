@@ -624,7 +624,7 @@ window.Tnmc.confirmEventMonitor = function() {
                     layer.close(window.Tnmc.loadIndex)
                     if (response.code === 0||response.code==200) {
                         layer.msg(response.message || response.msg || '操作成功', {
-                            offset: '40px',
+                            offset: '80px',
                             time: 4000,
                             icon: 1
                         })
@@ -640,7 +640,7 @@ window.Tnmc.confirmEventMonitor = function() {
                         }
                     } else {
                         layer.msg(response.message || response.msg || '操作失败', {
-                            offset: '40px',
+                            offset: '80px',
                             time: 4000,
                             // icon: 2
                         })

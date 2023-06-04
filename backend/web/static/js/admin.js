@@ -142,42 +142,71 @@ layui.use(['table'], function() {
                 return false;
             }
             
-            var confirm = btnObj.attr('confirm') || '删除后将不能恢复，确认删除选中的 ' + items.length + ' 条记录吗？';
-            var url = btnObj.data('url') || buildUrl(getCulRoute('del'));
-
-            btnObj.attr('confirm', confirm);
-
-            log(url, items);
+            if (!btnObj.attr('confirm')) {
+                btnObj.attr('confirm', '删除后将不能恢复，确认删除选中的 ' + items.length + ' 条记录吗？');
+            }
             
-            layer.confirm(confirm, function(index) {
-                var index = layer.load(0, {
-                    shade: false
-                }); // 0代表加载的风格，支持0-2
-                window.Tnmc.ajax(url, 'post', {id: items.join(',')}, function(response) {
-                    layer.close(index)
-                    if (response.code === 0 || response.code==200) {
-                        layer.msg(response.message || response.msg || '操作成功', {
-                            offset: '40px',
-                            time: 8000,
-                            icon: 1, 
-                            end: function () {
-                                table.reload('main-table');
-                            }
-                        });
-                        
-                    } else {
-                        layer.msg(response.message || response.msg || '操作失败', {
-                            offset: '40px',
-                            time: 8000,
-                            icon: 2
-                        });
-                    }
-                });
-            });
+            del(btnObj, {id: items.join(',')});
         } else if (obj.event === 'export') {
             var p = $.extend(window.Tnmc.getUrlFormArgs(), {id: items.join(',')});
 
             window.location.href = buildUrl(getCulRoute('export'), p);
         }
     });
-})
+
+    
+    //监听行工具事件
+    table.on('tool(main)', function (obj) {
+        var data = obj.data;
+        var btnObj = $(obj.tr).find('[lay-event="' + obj.event + '"]');
+        var url = btnObj.data('url') || '';
+
+        if (obj.event === 'del') {
+            del(btnObj, {id: data.id});
+        } else if (obj.event === 'edit') {
+            url = url || buildUrl(getCulRoute('edit'), {id: data.id});
+
+            window.location.href = url;
+        } else if (obj.event === 'enter') {
+            url = url || buildUrl(getCulRoute('enter'), {id: data.id});
+            
+            window.location.href = url;
+        }
+    });
+});
+
+function del(btnObj, params, url) {
+    var url = url || btnObj.data('url') || buildUrl(getCulRoute('del'));
+    var confirm = btnObj.attr('confirm') || '删除后将不能恢复，确认删除该条记录吗？';
+
+    btnObj.attr('confirm', confirm);
+
+    log(url, params);
+            
+    layer.confirm(confirm, function(index) {
+        var index = layer.load(0, {
+            shade: false
+        }); // 0代表加载的风格，支持0-2
+
+        window.Tnmc.ajax(url, 'POST', params, function(response) {
+            layer.close(index)
+            if (response.code === 0 || response.code==200) {
+                layer.msg(response.message || response.msg || '操作成功', {
+                    offset: '80px',
+                    time: 4000,
+                    icon: 1, 
+                    end: function () {
+                        table.reload('main-table');
+                    }
+                });
+                
+            } else {
+                layer.msg(response.message || response.msg || '操作失败', {
+                    offset: '80px',
+                    time: 4000,
+                    icon: 2
+                });
+            }
+        });
+    });
+}

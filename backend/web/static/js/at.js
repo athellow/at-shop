@@ -83,7 +83,10 @@ function ajaxSubmit(method, url, clickObj, callback) {
                 }
 
                 layer.msg(data.msg, {
-                    time: 2000, end: function () {
+                    time: 2000, 
+                    offset: '80px',     // top
+                    icon: 1, 
+                    end: function () {
                         go(redirect);
                     }
                 });
@@ -97,7 +100,10 @@ function ajaxSubmit(method, url, clickObj, callback) {
                 }
 
                 layer.msg(data.msg, {
-                    time: 2000, end: function () {
+                    time: 2000, 
+                    offset: '80px',
+                    icon: 2, 
+                    end: function () {
                         if (typeof failCallback == 'function') {
                             failCallback();
                         } else if (typeof failCallback == 'string' && failCallback != '') {
@@ -110,7 +116,10 @@ function ajaxSubmit(method, url, clickObj, callback) {
             }
         },
         error: function (data) {
-            layer.msg('请求异常');
+            layer.msg('请求异常', {
+                offset: '40px',
+                icon: 1
+            });
         },
         complete: function (data) {
             clickObj.prop('disabled', false);

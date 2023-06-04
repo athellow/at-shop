@@ -57,10 +57,16 @@
                         <th></th>
                         <input type="hidden" name="id" value="{{ admin.id }}" />
                         <td class="ptb20"><input class="layui-btn layui-bg-blue J_AjaxSubmit" type="submit"
-                            value="提交" /></td>
+                            redirect="" value="提交" /></td>
                     </tr>
                 </table>
             </form>
         </div>
     </div>
 </div>
+<script>
+    $(function() {
+        var redirect = buildUrl('admin/admin/index');
+        $('.J_AjaxSubmit').attr('redirect', redirect);
+    });
+</script>

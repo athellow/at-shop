@@ -71,7 +71,7 @@
         </button>
 
         <button class="layui-btn layui-btn-sm layui-btn-primary layui-border-blue layui-btn-disabled" data-field="id" data-batch="true" 
-            data-confirm="删除后将不能恢复，确认删除勾选的记录吗？" disabled="disabled" 
+            data-confirm="确认删除勾选的记录吗？" disabled="disabled" 
             data-url="/index.php?r=admin/admin/del" >
             <i class="layui-icon layui-icon-close"></i>批量删除
         </button>
@@ -84,7 +84,7 @@
 
 <script type="text/html" id="colBar">
     <a class="ml5 mr5 blue pointer" lay-event="edit">编辑</a>
-    <a class="ml5 mr5 blue pointer" lay-event="del" confirm="删除后将不能恢复，确认删除该项吗？">删除</a>
+    <a class="ml5 mr5 blue pointer" lay-event="del" confirm="确认删除该条记录吗？">删除</a>
     <a class="ml5 mr5 blue pointer" lay-event="enter">登录记录</a>
 </script>
 
@@ -122,8 +122,8 @@ layui.use(['table', 'form', 'laydate'], function() {
                 width: 180,
                 fixed: 'right',
                 templet: function(d) {
-                    var html = '<a class="ml5 mr5 blue pointer" lay-event="edit">编辑</a>';
-                    html += '<a class="ml5 mr5 blue pointer" lay-event="del" confirm="删除后将不能恢复，确认删除该项吗？">删除</a>';
+                    var html = '<a class="ml5 mr5 blue pointer" data-id="'+ d.id +'" lay-event="edit">编辑</a>';
+                    html += '<a class="ml5 mr5 blue pointer" lay-event="del">删除</a>';
                     html += '<a class="ml5 mr5 blue pointer" lay-event="enter">登录记录</a>';
 
                     return html;
@@ -173,19 +173,5 @@ layui.use(['table', 'form', 'laydate'], function() {
     // });
 
 
-    //监听行工具事件
-    table.on('tool(main)', function (obj) {alert(22)
-        var data = obj.data;
-        if (obj.event === 'del') {
-            var btnObj = $(obj.tr).find('[lay-event="' + obj.event + '"]');
-            ajaxRequest(btnObj, url(['user/delete', { id: data.userid }]), function () {
-                obj.del();
-            });
-        } else if (obj.event === 'edit') {
-            window.location.href = url(['user/edit', { id: data.userid }]);
-        } else if (obj.event === 'enter') {
-            window.location.href = url(['user/enter', { id: data.userid }]);
-        }
-    });
 });
 </script>

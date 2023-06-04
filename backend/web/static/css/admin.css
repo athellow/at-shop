@@ -1035,10 +1035,9 @@ i.fa {
 
 /*search */
 .search-form {
-    font-size: 14px;
     margin:10px;
     background-color: #fff;
-    padding:20px;
+    padding: 20px 20px 0 20px;
     border-radius: 6px;
 }
 .search-form .formbtn {
@@ -1085,18 +1084,9 @@ i.fa {
     color: #3e3e3e;
     border-bottom: 0;
 }
-.layui-layer-dialog .layui-layer-content {
-    padding: 15px 40px !important;
-    color: #999;
-    text-align: center;
-    max-width: 700px;
-}
 .layui-layout-admin .layui-layer-msg {
     border-radius: 2px;   
 }
-/* .layui-layout-admin .layui-layer-msg .layui-layer-content{
-    color: #fff;
-} */
 .layui-layer-dialog .layui-layer-btn {
     text-align: center;
     padding: 10px 40px 30px;
