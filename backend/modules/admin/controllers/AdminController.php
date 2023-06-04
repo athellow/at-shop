@@ -11,7 +11,6 @@ use yii\web\Response;
 use backend\controllers\BaseController;
 use backend\models\Admin;
 use backend\services\admin\AdminService;
-use common\helpers\Page;
 use common\helpers\Request;
 use common\helpers\Url;
 
