@@ -18,7 +18,7 @@ class IndexController extends BaseController
      */
     public function actionIndex()
     {
-        return $this->render('index.html', array_merge($this->params, ['content' => 'aaaa', 'page' => ['title' => 'aasd']]));
+        return $this->render('index.html', ['content' => 'aaaa', 'page' => ['title' => 'aasd']]);
     }
     
     /**

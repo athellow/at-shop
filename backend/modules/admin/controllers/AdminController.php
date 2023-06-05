@@ -31,11 +31,11 @@ class AdminController extends BaseController
             return $this->success('获取成功', $data['items'], $data['total']); 
         }
 
-        return $this->render('index.html', array_merge($this->params, [
+        return $this->render('index.html', [
             'statusList' => Admin::$statusList,
             'addUrl' => Url::build('admin/admin/add'),
             'page' => ['title' => 'aasd']
-        ]));
+        ]);
     }
 
     /**
@@ -59,9 +59,9 @@ class AdminController extends BaseController
             return $this->error($msg, $code);
         }
 
-        return $this->render('edit.html', array_merge($this->params, [
+        return $this->render('edit.html', [
             'statusList' => Admin::$statusList,
-        ]));
+        ]);
     }
 
     /**
@@ -89,10 +89,10 @@ class AdminController extends BaseController
         $admin = Admin::findOne($id)->toArray();
         $admin['avatar'] = Yii::$app->params['loacalFileDomain'] . $admin['avatar'];
         
-        return $this->render('edit.html', array_merge($this->params, [
+        return $this->render('edit.html', [
             'admin' => $admin,
             'statusList' => Admin::$statusList,
-        ]));
+        ]);
     }
 
     /**

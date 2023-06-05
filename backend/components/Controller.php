@@ -45,6 +45,10 @@ class Controller extends \common\components\Controller
      */
     public function init()
     {
+        // $this->module->getBasePath()
+        // 设置模板主题
+        $this->module->setViewPath(Yii::getAlias('@backend').DIRECTORY_SEPARATOR.'views'. DIRECTORY_SEPARATOR .'default');
+        
         parent::init();
 
         // 视图公共参数
@@ -61,6 +65,16 @@ class Controller extends \common\components\Controller
     /**
      * {@inheritdoc}
      */
+    public function render($view, $params = [])
+    {
+        $params =  array_merge($this->params, $params);
+
+        return parent::render($view, $params);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function actions()
     {
         return [
@@ -69,7 +83,8 @@ class Controller extends \common\components\Controller
                 'fixedVerifyCode'   => YII_ENV_TEST ? 'atcode' : null,
                 'maxLength'         => 4,
                 'minLength'         => 4,
-                'width'             => 108,
+                'width'             => 120,
+                'height'            => 40,
             ],
         ];
     }
