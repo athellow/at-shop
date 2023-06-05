@@ -10,7 +10,7 @@ $(function () {
 
     /* 表单提交 */
     $('body').on('click', '.J_AjaxSubmit', function () {
-        var method = $(this).parents('form').attr('method').toUpperCase();
+        var method = ($(this).parents('form').attr('method') || 'POST').toUpperCase();
         var url = window.location.href;
         var confirm = $(this).attr('confirm');
 
