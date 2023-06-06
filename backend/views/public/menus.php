@@ -8,7 +8,7 @@ $curUrl = urldecode(Yii::$app->request->getUrl());
 ?>
 
 <div id="leftMenus">
-    <div class="layui-side">
+    <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <div class="logo">
                 <a class="block center webkit-box white layui-font-18 box-align-center" title="<?= Yii::$app->params['site']['title'] ?>">

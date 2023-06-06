@@ -44,6 +44,7 @@
     <?php include('../views/public/header.php') ?>
     <?php include('../views/public/menus.php') ?>
     <?= $content ?>
+    <?php //include('../views/public/footer.php') ?>
 </div>
 
 
