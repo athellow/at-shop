@@ -1,69 +1,68 @@
-<div id="rightBox" class="clearfix layui-body">
-    <div class="scroller">
-        <div class="flexigrid">
-            <form method="post" enctype="multipart/form-data">
-                <table class="infoTable">
-                    <tr>
-                        <th class="paddingT15"><label>账号</label></th>
-                        <td class="paddingT15 wordSpacing5">
-                            <input class="infoTableInput" id="username" type="text" name="username"
-                                value="{{ admin.username|escape }}" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="paddingT15"><label>密码</label></th>
-                        <td class="paddingT15 wordSpacing5">
-                            <input class="infoTableInput" name="password" type="text" id="password" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="paddingT15"><label>邮箱</label></th>
-                        <td class="paddingT15 wordSpacing5">
-                            <input class="infoTableInput" name="email" type="text" id="email"
-                                value="{{ admin.email|escape }}" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="paddingT15"><label>状态</label></th>
-                        <td class="paddingT15 layui-form">
-                            {% for index, item in statusList %}
-                            <input type="radio" name="status" value="{{ index }}" title="{{ item }}" 
-                                {% if admin.status == index %}checked{% endif %} />
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="paddingT15"><label>头像</label></th>
-                        <td class="paddingT15 wordSpacing5 webkit-box">
-                            <div class="input-file-show">
-                                <input class="type-file-file" onchange="getTempPathcallback(this)" name="avatar" 
-                                    id="avatar" type="file" size="30" hidefocus="true">
-                                <input type="hidden" name="filekey" value="avatar" />
-                                <div class="type-file-image">
-                                    {% if admin.avatar %}
-                                    <img class="block" src="{{ admin.avatar }}" width="100" height="100" />
-                                    <span>修改图片</span>
-                                    {% else %}
-                                    <i class="iconfont icon-icon_pic"></i>
-                                    {% endif %}
-                                </div>
+<div class="scroller">
+    <div class="flexigrid">
+        <form method="post" enctype="multipart/form-data">
+            <table class="infoTable">
+                <tr>
+                    <th class="paddingT15"><label>账号</label></th>
+                    <td class="paddingT15 wordSpacing5">
+                        <input class="infoTableInput" id="username" type="text" name="username"
+                            value="{{ admin.username|escape }}" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="paddingT15"><label>密码</label></th>
+                    <td class="paddingT15 wordSpacing5">
+                        <input class="infoTableInput" name="password" type="text" id="password" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="paddingT15"><label>邮箱</label></th>
+                    <td class="paddingT15 wordSpacing5">
+                        <input class="infoTableInput" name="email" type="text" id="email"
+                            value="{{ admin.email|escape }}" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="paddingT15"><label>状态</label></th>
+                    <td class="paddingT15 layui-form">
+                        {% for index, item in statusList %}
+                        <input type="radio" name="status" value="{{ index }}" title="{{ item }}" 
+                            {% if admin.status == index %}checked{% endif %} />
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="paddingT15"><label>头像</label></th>
+                    <td class="paddingT15 wordSpacing5 webkit-box">
+                        <div class="input-file-show">
+                            <input class="type-file-file" onchange="getTempPathcallback(this)" name="avatar" 
+                                id="avatar" type="file" size="30" hidefocus="true">
+                            <input type="hidden" name="filekey" value="avatar" />
+                            <div class="type-file-image">
+                                {% if admin.avatar %}
+                                <img class="block" src="{{ admin.avatar }}" width="100" height="100" />
+                                <span>修改图片</span>
+                                {% else %}
+                                <i class="iconfont icon-icon_pic"></i>
+                                {% endif %}
                             </div>
-                            <label class="field_notice f-13 inline-block box-align-center ml20">
-                                建议尺寸 120 * 120 像素
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <input type="hidden" name="id" value="{{ admin.id }}" />
-                        <td class="ptb20"><input class="layui-btn layui-bg-blue J_AjaxSubmit" type="submit"
-                            redirect="" value="提交" /></td>
-                    </tr>
-                </table>
-            </form>
-        </div>
+                        </div>
+                        <label class="field_notice f-13 inline-block box-align-center ml20">
+                            建议尺寸 120 * 120 像素
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <input type="hidden" name="id" value="{{ admin.id }}" />
+                    <td class="ptb20"><input class="layui-btn layui-bg-blue J_AjaxSubmit" type="submit"
+                        redirect="" value="提交" /></td>
+                </tr>
+            </table>
+        </form>
     </div>
 </div>
+
 <script>
     $(function() {
         var redirect = buildUrl('admin/admin/index');

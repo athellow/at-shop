@@ -1,59 +1,57 @@
-<div id="rightBox" class="clearfix layui-body duty-container" style="min-height: 500px;">
-    <div class="scroller">
-        <div class="search-form clearfix">
-            <form id="formSearch" class="layuiadmin-card-header-auto layui-form" action="" data-auto-get>
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">账户</label>
-                        <div class="layui-input-inline">
-                            <input type="text" class="layui-input" name="username" value="{{ username|escape }}" placeholder="账户" />
-                        </div>
-                    </div>
-
-                    <div class="layui-inline">
-                        <label class="layui-form-label">邮箱</label>
-                        <div class="layui-input-inline">
-                            <input type="text" class="layui-input" name="email" value="{{ email|escape }}" placeholder="账户" />
-                        </div>
-                    </div>
-
-                    <div class="layui-inline">
-                        <label class="layui-form-label">状态</label>
-                        <div class="layui-input-inline">
-                            <select name="status">
-                                <option value="">-全部-</option>
-                                {% for index, item in statusList %}
-                                <option value="{{ index }}">{{ item }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="layui-inline">
-                        <label class="layui-form-label">注册时间</label>
-                        <div class="layui-input-inline">
-                          <input type="text" class="layui-input" name="create_date" value="{{create_date}}" id="create_date" placeholder="选择时间范围" autocomplete="off" />
-                        </div>
-                    </div>
-                    
-                    <div class="layui-inline">
-                        <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" 
-                            lay-submit="" lay-filter="LAY-user-front-search">
-                                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                                搜索
-                        </button>
-                        <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm" 
-                            lay-submit="" lay-filter="LAY-user-front-search">
-                                重置
-                        </button>
+<div class="scroller">
+    <div class="search-form clearfix">
+        <form id="formSearch" class="layuiadmin-card-header-auto layui-form" action="" data-auto-get>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">账户</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" name="username" value="{{ username|escape }}" placeholder="账户" />
                     </div>
                 </div>
-            </form>
-        </div>
 
-        <div class="tablegrid">
-            <table class="layui-hide" id="main-table" lay-filter="main"></table>
-        </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" name="email" value="{{ email|escape }}" placeholder="账户" />
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-inline">
+                        <select name="status">
+                            <option value="">-全部-</option>
+                            {% for index, item in statusList %}
+                            <option value="{{ index }}">{{ item }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="layui-inline">
+                    <label class="layui-form-label">注册时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" name="create_date" value="{{create_date}}" id="create_date" placeholder="选择时间范围" autocomplete="off" />
+                    </div>
+                </div>
+                
+                <div class="layui-inline">
+                    <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" 
+                        lay-submit="" lay-filter="LAY-user-front-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                            搜索
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm" 
+                        lay-submit="" lay-filter="LAY-user-front-search">
+                            重置
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="tablegrid">
+        <table class="layui-hide" id="main-table" lay-filter="main"></table>
     </div>
 </div>
 

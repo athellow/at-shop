@@ -43,7 +43,9 @@
 <div id="main">
     <?php include('../views/public/header.php') ?>
     <?php include('../views/public/menus.php') ?>
-    <?= $content ?>
+    <div id="rightBox" class="clearfix layui-body">
+        <?= $content ?>
+    </div>
     <?php //include('../views/public/footer.php') ?>
 </div>
 
