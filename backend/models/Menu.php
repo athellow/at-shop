@@ -41,6 +41,17 @@ class Menu extends ActiveRecord
                         'access'  => ['key' => 'manager|all', 'label' => '管理员管理']
                     ],
                 ]
+            ],
+            [
+                'text'      => '模板中心',
+                'ico' => 'icon-huiyuan',
+                'children'  => [
+                    [
+                        'text' => '表单',
+                        'url'   => Url::build('demo/demo/form'),
+                        'access'  => ['key' => 'manager|all', 'label' => '表单']
+                    ],
+                ]
             ]
         ];
         

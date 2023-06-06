@@ -76,6 +76,9 @@ return [
         'auth' => [
             'class' => 'backend\modules\auth\Module',
         ],
+        'demo' => [
+            'class' => 'backend\modules\demo\Module',
+        ],
     ],
     'params' => $params,
 ];
